@@ -10,11 +10,6 @@ class Day2 : Day(2, "Dive!") {
         DOWN("down"),
     }
 
-    data class Movement(
-        val value: Int,
-        val direction: Direction,
-    )
-
     override fun solvePart1(input: List<String>): String {
         var x = 0
         var y = 0
@@ -40,6 +35,28 @@ class Day2 : Day(2, "Dive!") {
     }
 
     override fun solvePart2(input: List<String>): String {
-        TODO("Not yet implemented")
+        var x = 0
+        var y = 0
+        var aim = 0
+
+        input.forEach {
+            val (direction, value) = it.split(" ")
+            when (direction) {
+                Direction.FORWARD.value -> {
+                    x += value.toInt()
+                    y += value.toInt() * aim
+                }
+
+                Direction.UP.value -> {
+                    aim -= value.toInt()
+                }
+
+                Direction.DOWN.value -> {
+                    aim += value.toInt()
+                }
+            }
+        }
+
+        return (x * y).absoluteValue.toString()
     }
 }

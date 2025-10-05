@@ -25,6 +25,7 @@ class Day3 : Day(3, "Binary Diagnostic") {
     }
 
     override fun solvePart2(input: List<String>): String {
-        TODO("Not yet implemented")
+        // TODO later
+        return ""
     }
 }

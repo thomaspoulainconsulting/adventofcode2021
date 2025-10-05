@@ -2,19 +2,17 @@ package days
 
 class Day3 : Day(3, "Binary Diagnostic") {
     override fun solvePart1(input: List<String>): String {
-        val size = input.size
-        val length = input.first().length
-        var gammaRate = ""
-
-        for (i in 0 until length) {
-            var zeros = 0
-            var ones = 0
-            for (j in 0 until size) {
-                if (input[j][i] == '0') zeros++
-                else ones++
+        val gammaRate = buildString {
+            for (i in 0 until input.first().length) {
+                var zeros = 0
+                var ones = 0
+                for (j in 0 until input.size) {
+                    if (input[j][i] == '0') zeros++
+                    else ones++
+                }
+                if (zeros > ones) append("0")
+                else append("1")
             }
-            if (zeros > ones) gammaRate += "0"
-            else gammaRate += "1"
         }
 
         val epsilonRate = gammaRate

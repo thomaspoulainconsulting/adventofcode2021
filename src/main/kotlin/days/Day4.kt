@@ -55,7 +55,31 @@ class Day4 : Day(4, "Giant Squid") {
     }
 
     override fun solvePart2(input: List<String>): String {
-        // todo later
-        return ""
+        val draws = input.first().split(",").map(String::toInt)
+
+        val boards = input
+            .drop(2)
+            .filter { it.isNotBlank() }
+            .chunked(size = 5)
+            .map { chunk ->
+                Board(
+                    values = chunk.map { bingoNumbers ->
+                        bingoNumbers.split(" ").filter { it.isNotBlank() }.map {
+                            BingoNumber(value = it.toInt())
+                        }
+                    }
+                )
+            }
+
+        val (draw, board) = draws.flatMap { draw ->
+            boards.mapNotNull { board ->
+                if (!board.hasWon()) {
+                    board.mark(draw)
+                    if (board.hasWon()) draw to board else null
+                } else null
+            }
+        }.lastOrNull() ?: error("Aucun board gagnant trouvé")
+
+        return (board.sumUnmarked() * draw).toString()
     }
 }
